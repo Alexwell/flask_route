@@ -9,14 +9,18 @@ app.config.update(
     DEBUG=True,
     WTF_CSRF_ENABLED=False,
 )
+
+admin_min = 1
+admin_max = 10
+
 admin_seed = os.environ["SECRET_SEED"]
 random.seed(admin_seed)
-admin_number = random.randint(1, 10)
+admin_number = random.randint(admin_min, admin_max)
 admin_number = str(admin_number)
 
 class NumberForm(FlaskForm):
 	usr_number = IntegerField(label="usr_number", validators=[
-		validators.NumberRange(min=1, max=10, message="out of range"),
+		validators.NumberRange(min=admin_min, max=admin_max, message="out of range"),
 		validators.InputRequired(message="no input")
 	])
 
